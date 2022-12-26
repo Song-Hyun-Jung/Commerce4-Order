@@ -15,10 +15,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class PersonOrderContext {
 	public Address addressSearchById(long addressId, String token) throws Exception{
-		String url = "8080/rest/address/searchById";
-		url += "/" + addressId;
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/address/searchById";
+		requestUrl += "/" + addressId;
 		
-		String response = HttpConnectionUtils.getRequest(url, token);
+		String response = HttpConnectionUtils.getRequest(targetUrl, requestUrl, token);
 		System.out.println("getRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Address searchAddress = objectMapper.readValue(response, Address.class);
@@ -26,10 +27,11 @@ public class PersonOrderContext {
 	}
 	
 	public Phone phoneSearchById(long phoneId, String token) throws Exception{
-		String url = "8080/rest/phone/searchById";
-		url += "/" + phoneId;
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/phone/searchById";
+		requestUrl += "/" + phoneId;
 		
-		String response = HttpConnectionUtils.getRequest(url, token);
+		String response = HttpConnectionUtils.getRequest(targetUrl, requestUrl, token);
 		System.out.println("getRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Phone searchPhone = objectMapper.readValue(response, Phone.class);
@@ -37,12 +39,12 @@ public class PersonOrderContext {
 	}
 	
 	public Address insertAddress(AddressVO newAddrVO, String token) throws Exception{
-		
-		String url = "8080/rest/address/insertAddress";
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/address/insertAddress";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("addressId", newAddrVO.getAddressId());
 		map.put("addressDetail", newAddrVO.getAddressDetail());
-		String response = HttpConnectionUtils.postRequest(url, map, token);
+		String response = HttpConnectionUtils.postRequest(targetUrl, requestUrl, map, token);
 		System.out.println("postRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Address newAddr = objectMapper.readValue(response, Address.class);
@@ -50,11 +52,12 @@ public class PersonOrderContext {
 	}
 	
 	public Phone insertPhone(PhoneVO newPhoneVO , String token) throws Exception{
-		String url = "8080/rest/phone/insertPhone";
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/phone/insertPhone";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("phoneId", newPhoneVO.getPhoneId());
 		map.put("phoneNumber", newPhoneVO.getPhoneNumber());
-		String response = HttpConnectionUtils.postRequest(url, map, token);
+		String response = HttpConnectionUtils.postRequest(targetUrl, requestUrl, map, token);
 		System.out.println("postRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Phone newPhone = objectMapper.readValue(response, Phone.class);

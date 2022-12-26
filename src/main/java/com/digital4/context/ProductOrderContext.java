@@ -9,10 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class ProductOrderContext {
 	public Product productSearchById(long productId, String token) throws Exception {
-		String url = "8080/rest/product/searchById/product";
-		url += "/" + productId;
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/product/searchById/product";
+		requestUrl += "/" + productId;
 		
-		String response = HttpConnectionUtils.getRequest(url, token);
+		String response = HttpConnectionUtils.getRequest(targetUrl, requestUrl, token);
 		System.out.println("getRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Product searchProduct = objectMapper.readValue(response, Product.class);

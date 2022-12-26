@@ -13,10 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class InventoryOrderContext {
 	//public boolean subtractQuantity//여기서 httpUrlConnection 호출
 	public Inventory inventorySearchById(long inventoryId, String token) throws Exception{
-		String url = "8080/rest/inventory/searchById";
-		url += "/" + inventoryId;
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/inventory/searchById";
+		requestUrl += "/" + inventoryId;
 		
-		String response = HttpConnectionUtils.getRequest(url, token);
+		String response = HttpConnectionUtils.getRequest(targetUrl, requestUrl, token);
 		System.out.println("getRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Inventory inventory = objectMapper.readValue(response, Inventory.class);
@@ -24,11 +25,12 @@ public class InventoryOrderContext {
 	}
 	
 	public Inventory subtractQuantity(long inventoryId, long subtractQuantity, String token) throws Exception{
-		String url = "8080/rest/inventory/purchaseInven";
+		String targetUrl = "APIG";
+		String requestUrl = "/rest/inventory/purchaseInven";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("productId", inventoryId);
 		map.put("quantity", subtractQuantity);
-		String response = HttpConnectionUtils.postRequest(url, map, token);
+		String response = HttpConnectionUtils.postRequest(targetUrl, requestUrl, map, token);
 		System.out.println("postRequest:" + response);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Inventory subtractResult = objectMapper.readValue(response, Inventory.class);
