@@ -21,7 +21,7 @@ pipeline {
       steps{
         script {
           echo "Build image START $BUILD_NUMBER"
-          sh "docker build --no-cache -f OrderVer1Dockerfile -t 192.168.100.12/commerce-hj/commerce-hj-order:v$BUILD_NUMBER ."
+          sh "docker build --no-cache -f OrderVer2Dockerfile -t 192.168.100.12/commerce-hj/commerce-hj-order:v$BUILD_NUMBER ."
           echo "Build image END"
         }
       }
@@ -46,8 +46,8 @@ pipeline {
       steps {
         script {
           echo "Deploy App START $BUILD_NUMBER"
-          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf create -f commerce-hj-order.yaml"
-          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf set image -n commerce-hj deployment/commerce-hj-order commerce-hj-order=192.168.100.12/commerce-hj/commerce-hj-order:v$BUILD_NUMBER"
+          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf create -f commerce-hj-order-ver2.yaml"
+          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf set image -n commerce-hj deployment/commerce-hj-order-ver2 commerce-hj-order-ver2=192.168.100.12/commerce-hj/commerce-hj-order:v$BUILD_NUMBER"
           echo "Deploy App END"
         }
       }
